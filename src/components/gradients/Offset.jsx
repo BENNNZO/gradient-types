@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react"
 
 // simple gradient just interpolated linearly
-export default function Default({ from, to, rectAmount }) {
+export default function Offset({ from, to, rectAmount }) {
     const canvasRef = useRef(null)
 
     useEffect(() => {
@@ -18,13 +18,22 @@ export default function Default({ from, to, rectAmount }) {
 
         // loop and generate each rect to build a gradient
         for (let i = 1; i < rectAmount; i++) {
-            let r = from.r + (((to.r - from.r) / rectAmount) * i)
-            let g = from.g + (((to.g - from.g) / rectAmount) * i)
-            let b = from.b + (((to.b - from.b) / rectAmount) * i)
+            let progress = i / rectAmount; // Normalized progress (0 to 1)
+        
+            let rProgress = Math.min(progress * 3, 1); // Red starts immediately
+            let gProgress = Math.min(Math.max((progress - 1/3) * 3, 0), 1); // Green starts after 1/3
+            let bProgress = Math.min(Math.max((progress - 2/3) * 3, 0), 1); // Blue starts after 2/3
+        
+            let r = from.r + (to.r - from.r) * rProgress;
+            let g = from.g + (to.g - from.g) * gProgress;
+            let b = from.b + (to.b - from.b) * bProgress;
 
-            ctx.fillStyle = `rgb(${r}, ${g}, ${b})`
+            console.log({ r, g, b })
+        
+            ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
             ctx.fillRect(i * rectWidth, 0, (i + 1) * rectWidth, 500)
         }
+        
     }, [from, to])
 
     return (
