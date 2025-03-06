@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 
-import Default from "@/components/gradients/Default"
+import Linear from "@/components/gradients/Linear"
 import Offset from "@/components/gradients/Offset"
 
 export default function Home() {
@@ -30,8 +30,8 @@ export default function Home() {
 			<input type="color" onChange={e => setFrom(hexToRgb(e.target.value))} />
 			<input type="color" onChange={e => setTo(hexToRgb(e.target.value))} />
 
-			<Default from={from} to={to} rectAmount={rectAmount} />
-			<Offset from={from} to={to} rectAmount={rectAmount} />
+			<Linear from={from} to={to} rectAmount={rectAmount} title="Linear" />
+			<Offset from={from} to={to} rectAmount={rectAmount} title="Offset" />
 		</div>
 	);
 }

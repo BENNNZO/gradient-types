@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react"
 
 // simple gradient just interpolated linearly
-export default function Offset({ from, to, rectAmount }) {
+export default function Offset({ from, to, rectAmount, title }) {
     const canvasRef = useRef(null)
 
     useEffect(() => {
@@ -37,8 +37,12 @@ export default function Offset({ from, to, rectAmount }) {
     }, [from, to])
 
     return (
-        <div className="bg-zinc-800 border-zinc-700 border rounded-xl p-2 w-full h-32">
-            <canvas ref={canvasRef} className="rounded-md shadow-md bg-black w-full h-full"></canvas>
+        <div className="bg-zinc-800 border-zinc-700 border rounded-xl p-2 w-full h-54">
+            <p className="font-bold tracking-wider text-xl text-zinc-400">{title}</p>
+            <div className="w-full h-px bg-zinc-700 my-2"></div>
+            <div className="w-full h-38">
+                <canvas ref={canvasRef} className="rounded-md shadow-xl bg-black w-full h-full"></canvas>
+            </div>
         </div>
     )
 }
